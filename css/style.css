@@ -1,0 +1,15 @@
+h1 {font-weight:bold;}
+#answer {max-width:310px;overflow:hidden;margin:5px;word-wrap: break-word;}
+.normal {width:60px;height:60px;margin:10px;text-align:center;}
+.long {width:145px;}
+.equals {height:120px;}
+.zero {width:120px;height:60px;}
+.not {width:60px;height:60px;}
+.equals {width:60px;}
+button {font-size:large;border-style:double;border-color:green;}
+button:hover{background-color:lightblue;}
+.rim {border:5px solid grey; width:350px;margin:auto;background-color:#9498a1;border-radius:10px;padding-top:8px;}
+input {width:95%;height:50px;margin-top:10px;}
+.onetothree {width:60px;height:60px;margin-left:10px;margin-right:10px;}
+#answer-box {text-align:right;width:310px;height:50px;margin:auto;border:solid;border-color:red;background-color:white;border-radius:10px;}
+

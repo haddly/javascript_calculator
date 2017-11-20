@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Build a Javascript calculator</title>
+  
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <div class="container-fluid">
+  <h1 class="text-primary text-center">Build a Javascript calculator</h1>
+  <hr />
+  <h2 class="text-info text-center">FreeCodeCamp APP</h2>
+  <hr />
+  <h2 id="test"></h2>
+  <div class="text-center rim">
+    <div id="answer-box"><h1 id="answer"></h1></div>
+
+    <button class="btn normal btn-success" id="ac" value="reset" onclick="deleteArray()"><h1>AC</h1></button>
+    <button class="normal btn btn-danger" onclick="turnOff()"><h1>OFF</h1></button>
+    <button class="btn normal btn-primary" onclick="cancelLastInput()"><h1>CE</h1></button>
+      <button id="/" class="normal btn" onclick="add_sub_div_or_mul(this.id)"><h1>&#247;</h1></button>
+        <br>
+    <button id="7" class="normal btn" onclick="add_one_to_nine(this.id)"><h1>7</h1></button>
+    <button id="8" class="normal btn" onclick="add_one_to_nine(this.id)"><h1>8</h1></button>
+    <button id="9" class="normal btn" onclick="add_one_to_nine(this.id)"><h1>9</h1></button>
+    <button id="*" class="normal btn" onclick="add_sub_div_or_mul(this.id)"><h1>&#215;</h1></button>
+       <br>
+    <button id="4" class="normal btn" onclick="add_one_to_nine(this.id)"><h1>4</h1></button>
+    <button id="5" class="btn normal" onclick="add_one_to_nine(this.id)"><h1>5</h1></button>
+    <button id="6" class="btn normal" onclick="add_one_to_nine(this.id)"><h1>6</h1></button>
+    <button id="-" class="normal btn" onclick="add_sub_div_or_mul(this.id)"><h1>&#8722;</h1></button>
+    
+    <br>
+    <button id="1" class="btn normal" onclick="add_one_to_nine(this.id)"><h1>1</h1></button>
+    <button id="2" class="btn normal" onclick="add_one_to_nine(this.id)"><h1>2</h1></button>
+    <button id="3" class="btn normal" onclick="add_one_to_nine(this.id)"><h1>3</h1></button>
+    <button id="+" class="btn normal" onclick="add_sub_div_or_mul(this.id)"><h1>&#43;</h1></button>
+     
+    <button class="btn normal long" onclick="maybe_add_zero();"><h1>0</h1></button>
+    <button class="btn normal" onclick="maybe_add_dot();"><h1>&#46;</h1></button>
+     <button class="btn normal" onclick="evaluateArray()"><h1>&#61;</h1></button>
+  
+  </div><!---->
+  
+  
+  
+  
+  
+  <p id="foo_bar"></p>
+  
+  
+  
+  
+  
+</div><!--container-fluid-->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+    <script  src="js/index.js"></script>
+
+</body>
+</html>
