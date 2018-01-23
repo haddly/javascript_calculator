@@ -1,45 +1,55 @@
-//"use strict";
-let toBeCalculated = "",
+calculator = function(){
+let string_to_eval = "",
   array = [],
   answer,
   stored_number = false,
   number_val,
   calc_val,
   first_is_zero = false,
-  just_nums = "",
+  last_nums_in_string = "",
   regex_calc_symb = /(\+|\/|\-|\*)/g,
-  answer_ = document.getElementById("answer");
+  answer_ = document.getElementById("answer"),
+  answer_html,
+    temp_array1, temp_array2;
 
-function check_if_length_over_21() {
-  if (toBeCalculated.length < 20) {
+function change_font_size_if_over_20() {
+  if (string_to_eval.length < 18) {
     answer_.style.fontSize = "25px";
   }
-  if (toBeCalculated.length >= 20 && toBeCalculated.length <= 59) {
+  if (string_to_eval.length >= 18 && string_to_eval.length <= 59) {
     answer_.style.fontSize = "16px";
     //answer_.stlye.
   }
- }
+}
 
 //button click between 1-9 gets the value of the button id and adds it to string.
 function add_one_to_nine(clicked_id) {
-  check_if_length_over_21();
-  if (toBeCalculated.length > 59) {
+  change_font_size_if_over_20();
+  if (string_to_eval.length > 59) {
     return;
   }
   number_val = clicked_id;
 
-  if (just_nums.charAt(0) === "0" && just_nums.length === 1) {
-    just_nums = "";
-    toBeCalculated = toBeCalculated.slice(0, -1);
-    toBeCalculated += number_val;
-    just_nums += number_val;
-    answer_.innerHTML = toBeCalculated;
+  if (
+    last_nums_in_string.charAt(0) === "0" &&
+    last_nums_in_string.length === 1
+  ) {
+    last_nums_in_string = "";
+    string_to_eval = string_to_eval.slice(0, -1);
+    string_to_eval += number_val;
+    last_nums_in_string += number_val;
+    convert_correct_symb();
+    answer_.innerHTML = answer_html;
+    //answer_.innerHTML = string_to_eval;
   } else {
-    toBeCalculated += number_val;
-    just_nums += number_val;
-    answer_.innerHTML = toBeCalculated;
+    string_to_eval += number_val;
+    last_nums_in_string += number_val;
+    convert_correct_symb();
+    answer_.innerHTML = answer_html;
+    //answer_.innerHTML = string_to_eval;
   }
 }
+//check if a string has been evaluated: if yes, clicking num or calc makes string empty.
 function check_stored_number() {
   if (stored_number) {
     answer_.innerHTML = "0";
@@ -47,95 +57,110 @@ function check_stored_number() {
   } else {
     return;
   }
-  answer_.innerHTML = toBeCalculated;
+  convert_correct_symb();
+  answer_.innerHTML = answer_html;
+  //answer_.innerHTML = string_to_eval;
 }
+
 function add_sub_div_or_mul(one_of_the_four) {
-  if (toBeCalculated.length > 59) {
+  if (string_to_eval.length > 59) {
     return;
   }
-  check_if_length_over_21();
+  change_font_size_if_over_20();
   check_stored_number();
-  let e = toBeCalculated.charAt(toBeCalculated.length - 1);
+  let e = string_to_eval.charAt(string_to_eval.length - 1);
 
   calc_val = one_of_the_four;
   if (e === "+" || e === "/" || e === "*" || e === "-" || !e.length) {
     return;
   } else {
-    just_nums = "";
-    toBeCalculated += calc_val;
-    answer_.innerHTML = toBeCalculated;
+    last_nums_in_string = "";
+    string_to_eval += calc_val;
+    convert_correct_symb();
+    answer_.innerHTML = answer_html;
+    //answer_.innerHTML = string_to_eval;
   }
 }
 function maybe_add_zero() {
-  if (toBeCalculated.length > 59) {
+  if (string_to_eval.length > 59) {
     return;
   }
-  check_if_length_over_21();
-  if (just_nums.length === 0) {
-    toBeCalculated += "0";
-    just_nums += "0";
-    answer_.innerHTML = toBeCalculated;
+  change_font_size_if_over_20();
+  if (last_nums_in_string.length === 0) {
+    string_to_eval += "0";
+    last_nums_in_string += "0";
+    convert_correct_symb();
+    answer_.innerHTML = answer_html;
+    //answer_.innerHTML = string_to_eval;
   }
-  if (just_nums.charAt(0) === "0") {
+  if (last_nums_in_string.charAt(0) === "0") {
     return;
   } else {
-    toBeCalculated += "0";
-    just_nums += "0";
-    answer_.innerHTML = toBeCalculated;
+    string_to_eval += "0";
+    last_nums_in_string += "0";
+    convert_correct_symb();
+    answer_.innerHTML = answer_html;
+    //answer_.innerHTML = string_to_eval;
   }
 }
-
+//add dot if a dot doesn't exist yet or string is not len = 0
 function maybe_add_dot() {
-  if (toBeCalculated.length > 59) {
+  if (string_to_eval.length > 59) {
     return;
   }
-  check_if_length_over_21();
+  change_font_size_if_over_20();
 
-  if (just_nums.length === 0) {
+  if (last_nums_in_string.length === 0) {
     return;
   }
-  if (just_nums.indexOf(".") > -1) {
+  if (last_nums_in_string.indexOf(".") > -1) {
     return;
   } else {
-    toBeCalculated += ".";
-    just_nums += ".";
+    string_to_eval += ".";
+    last_nums_in_string += ".";
   }
-  answer_.innerHTML = toBeCalculated;
+  convert_correct_symb();
+  answer_.innerHTML = answer_html;
+  //answer_.innerHTML = string_to_eval;
 }
 
 // Press the "AC" button and it displays "0" and then the string is back to "" for next input.
 const deleteArray = () => {
-  toBeCalculated = "";
-  just_nums = "";
-  check_if_length_over_21()
-   answer_.innerHTML = "0";
+  string_to_eval = "";
+  last_nums_in_string = "";
+  change_font_size_if_over_20();
+  answer_.innerHTML = "0";
 };
 
 function cancelLastInput() {
-  if (regex_calc_symb.test(toBeCalculated.charAt(toBeCalculated.length - 1))) {
-    toBeCalculated = toBeCalculated.slice(0, -1);
-    just_nums = get_last_string_nums();
-    answer_.innerHTML = toBeCalculated;
-    
+  if (regex_calc_symb.test(string_to_eval.charAt(string_to_eval.length - 1))) {
+    string_to_eval = string_to_eval.slice(0, -1);
+    last_nums_in_string = get_last_nums_in_string();
+    convert_correct_symb();
+    change_font_size_if_over_20()
+    answer_.innerHTML = answer_html;
+    //answer_.innerHTML = string_to_eval;
   } else {
-    just_nums = get_last_string_nums();
-    let just_nums_length = just_nums.length;
-    toBeCalculated = toBeCalculated.slice(0,-just_nums_length);
-    answer_.innerHTML = toBeCalculated;
+    last_nums_in_string = get_last_nums_in_string();
+    let last_nums_in_string_length = last_nums_in_string.length;
+    string_to_eval = string_to_eval.slice(0, -last_nums_in_string_length);
+    convert_correct_symb();
+    change_font_size_if_over_20()
+    answer_.innerHTML = answer_html;
+    //answer_.innerHTML = string_to_eval;
   }
-  
 }
-function get_last_string_nums() {
-  let plus_ = toBeCalculated.lastIndexOf("+"),
-    minus_ = toBeCalculated.lastIndexOf("-"),
-    times_ = toBeCalculated.lastIndexOf("*"),
-    div_ = toBeCalculated.lastIndexOf("/");
+function get_last_nums_in_string() {
+  let plus_ = string_to_eval.lastIndexOf("+"),
+    minus_ = string_to_eval.lastIndexOf("-"),
+    times_ = string_to_eval.lastIndexOf("*"),
+    div_ = string_to_eval.lastIndexOf("/");
   let e = [];
   e.push(plus_, minus_, times_, div_);
   e.sort();
   let j = e[e.length - 1];
-  let temp = toBeCalculated;
-  let i = toBeCalculated.length - 1;
+  let temp = string_to_eval;
+  let i = string_to_eval.length - 1;
   let z = "";
   do {
     z += temp.charAt(temp.length - 1);
@@ -150,7 +175,7 @@ function get_last_string_nums() {
 
 // use eval to evaluate string
 const evaluateArray = () => {
-  let h = toBeCalculated.charAt(toBeCalculated.length - 1);
+  let h = string_to_eval.charAt(string_to_eval.length - 1);
   if (h === "+" || h === "-" || h === "*" || h === "/") {
     stored_number = "";
     return;
@@ -158,21 +183,51 @@ const evaluateArray = () => {
   if (h.length === 0) {
     return;
   }
-  if (!Number(eval(toBeCalculated))) {
+  if (!Number(eval(string_to_eval))) {
     return;
   } else {
-    let answer = eval(toBeCalculated);
+    let answer = eval(string_to_eval);
     stored_number = answer;
-    toBeCalculated = answer.toString();
-    check_if_length_over_21();
-    just_nums = "";
+    string_to_eval = answer.toString();
+    change_font_size_if_over_20();
+    last_nums_in_string = "";
     answer_.innerHTML = answer;
-    toBeCalculated = "";
+    string_to_eval = "";
   }
 };
 // "OFF" button displays empty string and sets string to empty string
 const turnOff = () => {
-  toBeCalculated = "";
-  just_nums = "";
+  string_to_eval = "";
+  last_nums_in_string = "";
   answer_.innerHTML = "";
 };
+
+function convert_correct_symb() {
+  answer_html = Array.from(string_to_eval);
+  temp_array1 = answer_html.map(x => x === "/" ? x = "&#247;" : x = x);
+  temp_array2 = temp_array1.map(x => x === "*" ? x = "&times;" : x = x);
+  
+    //return x === "/" ? x = "&#247;" : x = x;
+    
+ 
+ 
+  answer_html = temp_array2.join("");
+}
+return {
+  deleteArray : deleteArray,
+  turnOff : turnOff,
+  cancelLastInput : cancelLastInput,
+  add_sub_div_or_mul : add_sub_div_or_mul,
+  add_one_to_nine : add_one_to_nine,
+  add_sub_div_or_mul : add_sub_div_or_mul,
+  maybe_add_zero : maybe_add_zero,
+  maybe_add_dot : maybe_add_dot,
+  evaluateArray : evaluateArray
+}
+  
+}();
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
